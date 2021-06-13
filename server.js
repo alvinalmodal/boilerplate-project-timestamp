@@ -26,15 +26,15 @@ app.get("/api/hello", function (req, res) {
 app.get("/api/:date?", (req, res) => {
   try {
     let { date } = req.params;
-    let unix;
-    let utc;
+
+    date = date || new Date();
 
     if (!isNaN(date)) {
       date = new Date(date * 1000);
     }
 
-    unix = new Date(date).getTime() / 1000;
-    utc = new Date(date).toUTCString();
+    let unix = new Date(date).getTime() / 1000;
+    let utc = new Date(unix).toGMTString();
 
     if (!unix || utc === "Invalid Date") throw new Error("Invalid Date");
 
