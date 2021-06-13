@@ -38,10 +38,8 @@ app.get("/api/:date?", (req, res) => {
 
     if (utc === "Invalid Date") throw new Error("Invalid Date");
 
-    res.status(200);
     res.send({ unix, utc });
   } catch (error) {
-    res.status(400);
     res.send({ error: "Invalid Date" });
   }
 });
