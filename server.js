@@ -29,12 +29,17 @@ app.get("/api/:date?", (req, res) => {
 
     date = date || new Date();
 
-    if (!isNaN(date)) {
-      date = new Date(date * 1000);
-    }
+    let unix;
+    let utc;
 
-    let unix = new Date(date).getTime() / 1000;
-    let utc = new Date(unix).toGMTString();
+    if (isNaN(date)) {
+      unix = new Date(date).getTime();
+      utc = new Date(unix).toUTCString();
+    } else {
+      date = new Date(date * 1000);
+      unix = new Date(date).getTime() / 1000;
+      utc = new Date(unix).toUTCString();
+    }
 
     if (utc === "Invalid Date") throw new Error("Invalid Date");
 
