@@ -36,7 +36,7 @@ app.get("/api/:date?", (req, res) => {
     let unix = new Date(date).getTime() / 1000;
     let utc = new Date(unix).toGMTString();
 
-    if (!unix || utc === "Invalid Date") throw new Error("Invalid Date");
+    if (utc === "Invalid Date") throw new Error("Invalid Date");
 
     res.status(200);
     res.send({ unix, utc });
